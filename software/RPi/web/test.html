@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" media="all" href="site.css"/>
+	</head>
+	<body>
+		<div id='graph-container'></div>
+	</body>
+	<script type="text/javascript">
+		var v=14;
+        if(typeof _var == "undefined"){var _var = {};} 
+        $.extend(_var, {"activeLocale":"et",
+        				"windIconsPath":"http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013\/images\/wind\/",
+        				"meteogramDataUri":"http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013\/meteogram.php?locationId=4926&lang=et",
+        				"translations":{"temperature":"Temperatuur","precipitation":"Sademed","pressure":"\u00d5hur\u00f5hk","wind":"Tuul"},
+        				"chartLocaleSettings":{"lang":{"month":{"":"Detsember"},"weekdays":["P\u00fchap\u00e4ev","Esmasp\u00e4ev","Teisip\u00e4ev","Kolmap\u00e4ev","Neljap\u00e4ev","Reede","Laup\u00e4ev"],"shortMonths":["Jaanauar","Veebruar","M\u00e4rts","Aprill","Mai","Juuni","Juuli","August","September","Oktoober","November","Detsember"]}},
+        				"every_village_ac_url":"http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013\/async\/locationAutocomplete.php",
+        				"every_village_redirect_url":"http:\/\/www.ilmateenistus.ee\/asukoha-prognoos\/",
+        				"theme_url":"http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013",
+        				"every_village_request_parameter":"id",
+        				"template_dir_path":"http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013"});
+    </script>
+    <script type="text/javascript" src="lib.js"></script>
+    <script type="text/javascript" src="site.js"></script>
+    <script type="text/javascript" src="ilm.js"></script>
+    <script type="text/javascript" src="dark.js"></script>
+</html>
