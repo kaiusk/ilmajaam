@@ -4,12 +4,12 @@
  */
 
 // Load the fonts
-Highcharts.createElement('link', {
+/*Highcharts.createElement('link', {
    href: 'http://fonts.googleapis.com/css?family=Unica+One',
    rel: 'stylesheet',
    type: 'text/css'
 }, null, document.getElementsByTagName('head')[0]);
-
+*/
 Highcharts.theme = {
    colors: ["#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
       "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
@@ -17,8 +17,8 @@ Highcharts.theme = {
       backgroundColor: {
          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
          stops: [
-            [0, '#2a2a2b'],
-            [1, '#3e3e40']
+            [0, '#000000'],
+            [1, '#000000']
          ]
       },
       style: {

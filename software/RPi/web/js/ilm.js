@@ -98,14 +98,14 @@ Meteogram.prototype.drawWindData = function (chart) {
                 
             chart.renderer.image(_var.windIconsPath + meteogram.windDirectionIcons[i], x, y, 17, 15)
                 .attr({
-                    title: meteogram.windDirections[i] + ' °'
+                    title: meteogram.windDirections[i] + ' ï¿½'
                     }
                 )
             .add();
             
             chart.renderer.text( '<span style="color:#87CEFA; font-size: 14px;">'+Highcharts.numberFormat(meteogram.windSpeeds[i], 1, '.')+'</span>', x+1, y-12)
                 .attr({
-                    title: meteogram.windDirections[i] + ' °'
+                    title: meteogram.windDirections[i] + ' ï¿½'
                     }
                 )
             .add();
@@ -232,7 +232,7 @@ Meteogram.prototype.getChartOptions = function () {
             type: 'datetime',
             tickInterval: 24 * 3600 * 1000,
             labels: {
-                format: '{value:<span style="font-size: 18px; font-weight: bold">%A</span>, %e. %b }',
+                format: '{value:<span style="font-size: 18px; font-weight: bold">%A</span>}',
                 align: 'left',
                 //x: 3,
                 //y: -5
@@ -247,7 +247,7 @@ Meteogram.prototype.getChartOptions = function () {
                 text: null
             },
             labels: {
-                format: '{value}°',
+                format: '{value}Â°',
                 style: {
                     fontSize: '14px'
                 },
@@ -341,7 +341,7 @@ Meteogram.prototype.getChartOptions = function () {
                 }
             },
             tooltip: {
-                valueSuffix: '°C'
+                valueSuffix: 'ï¿½C'
             },
             zIndex: 1,
             color: '#FF3333',
