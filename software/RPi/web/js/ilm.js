@@ -232,7 +232,7 @@ Meteogram.prototype.getChartOptions = function () {
             type: 'datetime',
             tickInterval: 24 * 3600 * 1000,
             labels: {
-                format: '{value:<span style="font-size: 18px; font-weight: bold">%A</span>}',
+                format: '{value:<span style="font-size: 20px; letter-spacing: 0px; color: #aaa">%A</span>}',
                 align: 'left',
                 //x: 3,
                 //y: -5

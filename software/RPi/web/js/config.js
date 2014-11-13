@@ -5,7 +5,9 @@ var lang = window.navigator.language;
 
 //change weather params here:
 var weatherParams = {
-    'q':'Tallinn,Estonia',
+    //'q':'Tallinn,Estonia',
+    'lat':59.409601,
+    'lon':26.725483,
     'units':'metric',
     'lang':lang
 };

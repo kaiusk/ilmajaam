@@ -9,15 +9,15 @@ var weatherParams = {
 var lang = window.navigator.language;
 
 var iconTable = {
-			'01d':'wi-day-sunny',
-			'02d':'wi-day-cloudy',
-			'03d':'wi-cloudy',
-			'04d':'wi-cloudy-windy',
+			'01d':'clear',
+			'02d':'variable_clouds',
+			'03d':'cloudy',
+			'04d':'cloudy_with_clear_spells',
 			'09d':'wi-showers',
-			'10d':'wi-rain',
-			'11d':'wi-thunderstorm',
-			'13d':'wi-snow',
-			'50d':'wi-fog',
+			'10d':'moderate_rain',
+			'11d':'thunderstorm',
+			'13d':'moderate_snowfall',
+			'50d':'fog',
 			'01n':'wi-night-clear',
 			'02n':'wi-night-cloudy',
 			'03n':'wi-night-cloudy',
@@ -123,7 +123,7 @@ jQuery(document).ready(function($) {
 			var row = $('<tr />').css('opacity', opacity);
 			row.append("<td class='dimmed xxsmall'>Päev</td>");
 			for (var i in forecastData) {
-				console.log(i);
+				console.log(i);  
 				var forecast = forecastData[i];
 				var dt = new Date(forecast.timestamp);
 				row.append($('<td/>').html(moment.weekdaysShort(dt.getDay())));			
@@ -135,7 +135,7 @@ jQuery(document).ready(function($) {
 			for (var i in forecastData) {
 				var forecast = forecastData[i];
 				var iconClass = iconTable[forecast.icon];
-				var sp = $('<span/>').addClass('icon').addClass('dimmed').addClass('wi').addClass(iconClass);
+				var sp = $('<span/>').addClass('weather-icon').addClass(iconClass);
 				row.append($('<td/>').addClass('iko').html(sp));
 			}
 			forecastTable.append(row);
@@ -154,14 +154,14 @@ jQuery(document).ready(function($) {
 				var forecast = forecastData[i];
 				var suund = roundVal(forecast.deg);
 				var sico = "";
-				if (suund>338 || suund<22) sico = 'S';
-				else if (suund>22 || suund<67) sico = 'SW';
-				else if (suund>67 || suund<112) sico = 'W';
-				else if (suund>112 || suund<157) sico = 'NW';
-				else if (suund>157 || suund<202) sico = 'N';
-				else if (suund>202 || suund<247) sico = 'NE';
-				else if (suund>247 || suund<292) sico = 'E';
-				else if (suund>292 || suund<338) sico = 'SE';
+				if (suund>338 || suund<22) sico = 'N';
+				else if (suund>22 || suund<67) sico = 'NE';
+				else if (suund>67 || suund<112) sico = 'E';
+				else if (suund>112 || suund<157) sico = 'SE';
+				else if (suund>157 || suund<202) sico = 'S';
+				else if (suund>202 || suund<247) sico = 'SW';
+				else if (suund>247 || suund<292) sico = 'W';
+				else if (suund>292 || suund<338) sico = 'NW';
 				row.append($('<td/>').addClass('day').html(roundVal(forecast.speed)+" <img src='images/wind/"+sico+".png' alt=''/>"));
 			}
 			forecastTable.append(row);
