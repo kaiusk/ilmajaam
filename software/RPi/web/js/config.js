@@ -9,8 +9,7 @@ var weatherParams = {
 	'lon': 26.725483,
 	'cnt': 10,
 	'mode':'json',
-    //'q':'Tallinn,Estonia',
-    'units':'metric',
-    'lang':lang
+	'units':'metric',
+	'lang':lang
 };
 
