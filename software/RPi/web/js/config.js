@@ -5,19 +5,12 @@ var lang = window.navigator.language;
 
 //change weather params here:
 var weatherParams = {
-    'q':'Tallinn,Estonia',
+	'lat': 59.409601, 
+	'lon': 26.725483,
+	'cnt': 10,
+	'mode':'json',
+    //'q':'Tallinn,Estonia',
     'units':'metric',
     'lang':lang
 };
 
-// compliments:
-var compliments = [
-            'Hey, handsome!',
-            'Hi, sexy!',
-            'Hello, beauty!',
-            'You look sexy!',
-            'Wow, you look hot!',
-            'Looking good today!',
-            'You look nice!',
-            'Enjoy your day!'
-        ];
