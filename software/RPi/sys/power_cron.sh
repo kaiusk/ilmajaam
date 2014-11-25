@@ -1,9 +1,9 @@
 #!/bin/bash
 
-touch -d '-1 minutes' limit
+touch -d '-10 minutes' limit
 if [ limit -nt pir ]; then
-    gpio mode 2 input
-    pwr=$(gpio read 2)
+    gpio mode 0 input
+    pwr=$(gpio read 0)
     if  [ "$pwr" = "1" ]; then
       #echo "Aeg magama minna..."
       gpio mode 1 out
