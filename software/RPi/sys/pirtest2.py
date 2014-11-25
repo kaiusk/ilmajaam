@@ -2,9 +2,10 @@
 import RPi.GPIO as GPIO
 import time
 
+#GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-PIR_PIN = 11
-LED_PIN = 13
+PIR_PIN = 13
+LED_PIN = 10
 SW_PIN  = 12
 
 GPIO.setup(PIR_PIN, GPIO.IN)
@@ -16,6 +17,7 @@ def MOTION(PIR_PIN):
         f = open('pir', 'w')
         f.write("Liigub!")
         f.close()
+        print("Test")
         if(GPIO.input(LED_PIN) == 0):		#power is off
                 GPIO.output(SW_PIN, GPIO.LOW)
                 time.sleep(1)
