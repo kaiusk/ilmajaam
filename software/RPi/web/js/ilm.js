@@ -179,7 +179,7 @@ Meteogram.prototype.getChartOptions = function () {
             marginRight: 40,
             marginTop: 65,
             plotBorderWidth: 1,
-            width: 930,
+            width: 1300,
             height: 400
             //backgroundColor: 'transparent'
         },
