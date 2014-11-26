@@ -35,7 +35,7 @@ if (strpos($f[0], "YES") > 0) {
 			<tr>
 				<td><div class="large time"></div></td>
 				<td class="large" id="toa_temp"></td>
-				<td><span class="large" id="valis_temp"></span><span class="dimmed xxsmall">&deg;C</span></td>
+				<td class="large"><span id="valis_temp"></span><span class="dimmed xxsmall">&deg;C</span></td>
 				<td class="large"><span id="niiskus"></span><span class="dimmed xxsmall">%</span></td>
 				<td class="large"><span id="tuul"></span><span class="dimmed xxsmall">m/s</span></td>
 				<td class="large"><span id="vihm"></span><span class="dimmed xxsmall">mm</span></td>
