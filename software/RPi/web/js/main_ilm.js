@@ -116,7 +116,9 @@ jQuery(document).ready(function($) {
 				}*/
 
 			}
-			delete forecastData[homme];
+			//delete forecastData[homme];
+			forecast.shift();
+			forecast.shift();
 						
 			var forecastTable = $('<table />').addClass('forecast-table');
 			var opacity = 1;

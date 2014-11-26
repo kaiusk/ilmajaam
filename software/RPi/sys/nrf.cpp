@@ -17,6 +17,8 @@ TMRh20 2014 - Updated to work with optimized RF24 Arduino library
  *
  * This is an example of how to use the RF24 class on RPi, communicating to an Arduino running
  * the GettingStarted sketch.
+ * 
+ * Modified to dump received data to syslog 
  */
 
 #include <cstdlib>
@@ -46,11 +48,9 @@ RF24 radio(RPI_V2_GPIO_P1_15, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ);
 
 // Radio pipe addresses for the 2 nodes to communicate.
 const uint8_t pipes[][6] = {"1Node","2Node"};
-//const uint64_t pipes[2] = { 0xABCDABCD71LL, 0x544d52687CLL };
 
 
 int main(int argc, char** argv){
-  //unsigned int counter;
   char hexstring[255] = "";
   char hex[10];
   openlog("slog", LOG_PID|LOG_CONS, LOG_USER);
@@ -67,9 +67,8 @@ int main(int argc, char** argv){
   radio.openWritingPipe(pipes[1]);
   radio.openReadingPipe(1,pipes[0]);
   radio.startListening();
-  //printf("alustan kuulamist\n");
 	
-	// forever loop
+// forever loop
   while (1) {
         char payload[16];
 
@@ -78,12 +77,9 @@ int main(int argc, char** argv){
 	
 		int i;
 		for (i = 0; i < 16; i++){
-			//if (i > 0) printf(":");
-			//printf("%u", payload[i]);
 	                sprintf(hex, "%u-", payload[i]);
         	        strcat(hexstring, hex);
 		}
-		//printf("\n");
 	        syslog(LOG_INFO, "%s", hexstring);
         	memset(&payload[0], 0, sizeof(payload));
 		memset(&hexstring[0], 0, sizeof(hexstring));
