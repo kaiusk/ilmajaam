@@ -6,7 +6,7 @@ var weatherParams = {
     'units':'metric',
 };
 
-var lang = window.navigator.language;
+var lang = "et_EE"; //window.navigator.language;
 
 var iconTable = {
 			'01d':'clear',
@@ -121,7 +121,7 @@ jQuery(document).ready(function($) {
 			var forecastTable = $('<table />').addClass('forecast-table');
 			var opacity = 1;
 			var row = $('<tr />').css('opacity', opacity);
-			row.append("<td class='dimmed xxsmall'>Päev</td>");
+			row.append("<td class='dimmed xxsmall' style='width: 80px'>Päev</td>");
 			for (var i in forecastData) {
 				console.log(i);  
 				var forecast = forecastData[i];

@@ -4,8 +4,9 @@
 	<title>ILM</title>
 	<script src="/js/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="css/site.css"/>
-    <link rel="stylesheet" type="text/css" href="css/ilm.css">
+        <link rel="stylesheet" type="text/css" href="css/ilm.css">
 	<link rel="stylesheet" type="text/css" href="css/weather-icons.css">
+        <meta http-equiv="refresh" content="1800">
 </head>
 <body>
 <?php
@@ -35,7 +36,7 @@ if (strpos($f[0], "YES") > 0) {
 			<tr>
 				<td><div class="large time"></div></td>
 				<td class="large" id="toa_temp"></td>
-				<td><span class="large" id="valis_temp"></span><span class="dimmed xxsmall">&deg;C</span></td>
+				<td class="large"><span id="valis_temp"></span><span class="dimmed xxsmall">&deg;C</span></td>
 				<td class="large"><span id="niiskus"></span><span class="dimmed xxsmall">%</span></td>
 				<td class="large"><span id="tuul"></span><span class="dimmed xxsmall">m/s</span></td>
 				<td class="large"><span id="vihm"></span><span class="dimmed xxsmall">mm</span></td>
