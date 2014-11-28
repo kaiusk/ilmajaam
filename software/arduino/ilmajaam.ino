@@ -24,7 +24,7 @@ SFE_BMP180 pressure;
 RF24 radio(3,4);
 
 volatile unsigned int counter = 0;
-volatile unsigned int eeprom_adr = 0;
+//volatile unsigned int eeprom_adr = 0;
 volatile byte flag = 1;
 
 byte addresses[][6] = {"1Node","2Node"};
@@ -41,11 +41,8 @@ void setup () {
 				//set up the sleep
   set_sleep_mode(SLEEP_MODE_PWR_DOWN); //sleep mode - POWER DOWN	
   // muu setup
-  //printf_begin();
   hw_setup();
   Serial.begin(57600);
-  //Serial.println("piiks");
-  
 }
 
 void loop () {
@@ -76,8 +73,8 @@ void loop () {
       radio.stopListening(); 
       radio.writeFast(&payload,16);   //Write to the FIFO buffers        
     
-      if(!radio.txStandBy()){ 
-          // st ei saanud andmeid saadetud!
+      if(!radio.txStandBy() && payload[4]==0 ){ 
+          // st ei saanud andmeid saadetud ja on taistund
           Serial.println("Ei saadetud\n");
       } 
       //stop
@@ -131,7 +128,6 @@ long readVcc() {
 }
 
 void setup_compass() {
-  //Compass.SetDeclination(8, 37, 'E');
   Compass.SetSamplingMode(COMPASS_SINGLE);  
   Compass.SetScale(COMPASS_SCALE_810); // min tundlikus
   Compass.SetOrientation(COMPASS_HORIZONTAL_X_NORTH);
@@ -146,9 +142,6 @@ void setup_rtc() {
 }
 
 void loe_dht(byte *pdata) {
-    //payload[8]  = temp_lsb
-    //payload[9]  = temp_msb
-    //payload[10] = niiskus 				// %
     int ttt;
     int chk = DHT.read22(DHT22_PIN);
     if (chk == DHTLIB_OK) {
