@@ -64,6 +64,10 @@ jQuery(document).ready(function($) {
 	})();
 
 	(function valis() {
+		$.getJSON('maksmin.php', function(data) {
+			$("#min24").html(data["min"]);
+			$("#maks24").html(data["maks"]);
+		});
 		$.getJSON('out.php', function(data) {
 			$("#valis_temp").html(data["temp"]);
 			$("#niiskus").html(data["niiskus"]);
@@ -116,16 +120,13 @@ jQuery(document).ready(function($) {
 				}*/
 
 			}
-			//delete forecastData[homme];
-			forecast.shift();
-			forecast.shift();
+			delete forecastData[homme];
 						
 			var forecastTable = $('<table />').addClass('forecast-table');
 			var opacity = 1;
 			var row = $('<tr />').css('opacity', opacity);
 			row.append("<td class='dimmed xxsmall' style='width: 80px'>Päev</td>");
 			for (var i in forecastData) {
-				console.log(i);  
 				var forecast = forecastData[i];
 				var dt = new Date(forecast.timestamp);
 				row.append($('<td/>').html(moment.weekdaysShort(dt.getDay())));			
@@ -156,14 +157,14 @@ jQuery(document).ready(function($) {
 				var forecast = forecastData[i];
 				var suund = roundVal(forecast.deg);
 				var sico = "";
-				if (suund>338 || suund<22) sico = 'N';
-				else if (suund>22 || suund<67) sico = 'NE';
-				else if (suund>67 || suund<112) sico = 'E';
-				else if (suund>112 || suund<157) sico = 'SE';
-				else if (suund>157 || suund<202) sico = 'S';
-				else if (suund>202 || suund<247) sico = 'SW';
-				else if (suund>247 || suund<292) sico = 'W';
-				else if (suund>292 || suund<338) sico = 'NW';
+				if (suund>338 || suund<22) sico = 'S';
+				else if (suund>22 || suund<67) sico = 'SW';
+				else if (suund>67 || suund<112) sico = 'W';
+				else if (suund>112 || suund<157) sico = 'NW';
+				else if (suund>157 || suund<202) sico = 'N';
+				else if (suund>202 || suund<247) sico = 'NE';
+				else if (suund>247 || suund<292) sico = 'E';
+				else if (suund>292 || suund<338) sico = 'SE';
 				row.append($('<td/>').addClass('day').html(roundVal(forecast.speed)+" <img src='images/wind/"+sico+".png' alt=''/>"));
 			}
 			forecastTable.append(row);

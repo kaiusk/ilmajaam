@@ -13,7 +13,6 @@
 header('Content-Type: text/html; charset=utf-8');
 setlocale(LC_TIME, 'et_EE.UTF-8');
 date_default_timezone_set("Europe/Tallinn");
-//error_reporting(E_ALL);
 $koord = array(59.409601, 26.725483);
 $tous = date_sunrise(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 2);
 $loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 2);
@@ -64,6 +63,9 @@ if (strpos($f[0], "YES") > 0) {
 	<div id='graph-container'></div>
 	<hr/>
 	<div class="forecast small dimmed"></div>
+	<div class="small dimmed">
+	<p>Viimase 24h min: <span id="min24"></span>&deg; ja max: <span id="maks24"></span>&deg;</p>
+	</div>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/moment-with-langs.min.js"></script>
