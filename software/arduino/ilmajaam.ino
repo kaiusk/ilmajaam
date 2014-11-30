@@ -9,7 +9,7 @@
 #include "RF24.h"
 //#include "printf.h"
 #include "RTClib.h"
-#include <HMC5883L_Simple.h>
+//#include <HMC5883L_Simple.h>
 #include <dht.h>
 #include <SFE_BMP180.h>
 
@@ -18,8 +18,8 @@
 #define ALTITUDE 42.0
 
 RTC_DS1307 rtc;
-HMC5883L_Simple Compass;
-dht DHT;
+//HMC5883L_Simple Compass;
+dht DHT; 
 SFE_BMP180 pressure;
 RF24 radio(3,4);
 
@@ -55,7 +55,7 @@ void loop () {
       flag = 0;
       // start
       digitalWrite(PWR_PIN, 1);         // toide sisse
-      delay(500);                      	// anna aega asjadel käima minna
+      delay(700);                      	// anna aega asjadel käima minna
       radio_setup();
       DateTime now = rtc.now();
       payload[0] = now.year()-2000;	// aasta - 2000
@@ -67,7 +67,7 @@ void loop () {
       payload[6] = readSolar();
       payload[7] = loe_bmp();
       loe_dht(payload);                // 8,9,10
-      payload[11] = Compass.GetHeadingDegrees()/2.0;
+      payload[11] = 0; //Compass.GetHeadingDegrees()/2.0;
       payload[12] = readRTCbat();
       
       radio.stopListening(); 
@@ -85,7 +85,7 @@ void loop () {
       }
       Serial.println();
       
-      delay(500);                      // lase serialil lõpetada
+      delay(300);                      // lase serialil lõpetada
 
       digitalWrite(PWR_PIN, 0);		// toide välja
       setWdt(); //re-set the watchdog
@@ -94,9 +94,11 @@ void loop () {
 }
 
 void hw_setup() {
+  //printf_begin();
   delay(1000);
   setup_rtc();
   pressure.begin();
+  //dht.setup(DHT22_PIN);
   delay(1000);
 }
 
@@ -127,11 +129,11 @@ long readVcc() {
   return result/100.0;                     // vastus 32 tähendab, et pinge on 3.2
 }
 
-void setup_compass() {
+/*void setup_compass() {
   Compass.SetSamplingMode(COMPASS_SINGLE);  
   Compass.SetScale(COMPASS_SCALE_810); // min tundlikus
   Compass.SetOrientation(COMPASS_HORIZONTAL_X_NORTH);
-}
+}*/
 
 void setup_rtc() {
   rtc.begin();
@@ -216,7 +218,7 @@ void setWdt() {
 }
 
 ISR(WDT_vect) {
-   if (++counter >= 10) { //set here the # of seconds for the timeout
+   if (++counter >= 58) { //set here the # of seconds for the timeout
       flag = 1;
    }
 } 
