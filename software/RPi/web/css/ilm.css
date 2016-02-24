@@ -48,14 +48,8 @@ hr {
 	color: #999;
 }
 
-.calendar-table {
-	font-size: 14px;
-	line-height: 20px;
-	margin-top: 10px;
-}
-.calendar-table .days {
-	padding-left: 20px;
-	text-align: right;
+.forecast-table th {
+	text-align: left;
 }
 
 @font-face {
@@ -285,4 +279,31 @@ hr {
 .tana td span:nth-child(2) {
 	color: #666;
 	padding: 4px;
+}
+
+.pos {
+	color: #FF3333;
+}
+
+.neg {
+	color: #48AFE8;
+}
+
+.temp {
+	font-size: 1.5em;
+	display: inline-block;
+	width: 40px;
+	text-align: right;
+}
+
+.ilm img{
+	vertical-align: top;
+	margin-top: -10px;
+}
+
+.tuul {
+	vertical-align: top;
+	display: inline-block;
+	width: 36px;
+	margin-left: 8px;
 }

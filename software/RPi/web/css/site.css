@@ -1,168 +1,168 @@
 
 /* Selge, Clear */
 .clear {
-    background:     url( "/images/ilm//selge-paev-f67.png" ) no-repeat left top;
+    background:     url( "../images/ilm/selge-paev-f67.png" ) no-repeat left top;
 }
 .night .clear {
-    background:     url( "/images/ilm//selge-oo-f80.png" ) no-repeat left top;
+    background:     url( "../images/ilm/selge-oo-f80.png" ) no-repeat left top;
 }
 
 /* Vähene pilvisus, Few Clouds */
 .few_clouds {
-    background:     url( "/images/ilm//vahene-pilvisus-paev-f100.png" ) no-repeat left top;
+    background:     url( "../images/ilm/vahene-pilvisus-paev-f100.png" ) no-repeat left top;
 }
 .night .few_clouds {
-    background:     url( "/images/ilm//vahene-pilvisus-oo-f100.png" ) no-repeat left top;
+    background:     url( "../images/ilm/vahene-pilvisus-oo-f100.png" ) no-repeat left top;
 }
 
 /* Variable clouds */
 .variable_clouds {
-    background:     url( "/images/ilm//vahelduv-pilvisus-f100.png" ) no-repeat left top;
+    background:     url( "../images/ilm/vahelduv-pilvisus-f100.png" ) no-repeat left top;
 }
 .night .variable_clouds {
-    background:     url( "/images/ilm//poolpilves-f100.png" ) no-repeat left top;
+    background:     url( "../images/ilm/poolpilves-f100.png" ) no-repeat left top;
 }
 
 /* Pilves selgimistega, Cloudy with clear spells */
 .cloudy_with_clear_spells {
-    background:     url( "/images/ilm//pilves-selgimistega-f100.png" ) no-repeat left top;
+    background:     url( "../images/ilm/pilves-selgimistega-f100.png" ) no-repeat left top;
 }
 .night .cloudy_with_clear_spells {
-    background:     url( "/images/ilm//peamiselt-pilves-f100.png" ) no-repeat left top;
+    background:     url( "../images/ilm/peamiselt-pilves-f100.png" ) no-repeat left top;
 }
 
 /* Pilves, Cloudy */
 .cloudy, .overcast {
-    background:     url( "/images/ilm//pilves-f100.png" ) no-repeat left top;
+    background:     url( "../images/ilm/pilves-f100.png" ) no-repeat left top;
 }
 
 /* Nõrk hooglumi, Light snow shower */
 .light_snow_shower {
-    background:     url( "/images/ilm//nork-hooglumi-paev-f37.png" ) no-repeat left top;
+    background:     url( "../images/ilm/nork-hooglumi-paev-f37.png" ) no-repeat left top;
 }
 .night .light_snow_shower {
-    background:     url( "/images/ilm//nork-hooglumi-oo-f41.png" ) no-repeat left top;
+    background:     url( "../images/ilm/nork-hooglumi-oo-f41.png" ) no-repeat left top;
 }
 
 /* Mõõdukas hooglumi, Moderate snow shower */
 .moderate_snow_shower {
-    background:     url( "/images/ilm//moodukas-hooglumi-paev-f37.png" ) no-repeat left top;
+    background:     url( "../images/ilm/moodukas-hooglumi-paev-f37.png" ) no-repeat left top;
 }
 .night .moderate_snow_shower {
-    background:     url( "/images/ilm//moodukas-hooglumi-oo-f37.png" ) no-repeat left top;
+    background:     url( "../images/ilm/moodukas-hooglumi-oo-f37.png" ) no-repeat left top;
 }
 
 /* Tugev hooglumi, Heavy snow shower */
 .heavy_snow_shower {
-    background:     url( "/images/ilm//tugev-hoolumi-paev-f37.png" ) no-repeat left top;
+    background:     url( "../images/ilm/tugev-hoolumi-paev-f37.png" ) no-repeat left top;
 }
 .night .heavy_snow_shower {
-    background:     url( "/images/ilm//tugev-hoolumi-oo-f37.png" ) no-repeat left top;
+    background:     url( "../images/ilm/tugev-hoolumi-oo-f37.png" ) no-repeat left top;
 }
 
 /* Nõrk hoovihm, Light shower */
 .light_shower {
-    background:     url( "/images/ilm//nork-hoovihm-paev-f29.png" ) no-repeat left top;
+    background:     url( "../images/ilm/nork-hoovihm-paev-f29.png" ) no-repeat left top;
 }
 .night .light_shower {
-    background:     url( "/images/ilm//nork-hoovihm-oo-f29.png" ) no-repeat left top;
+    background:     url( "../images/ilm/nork-hoovihm-oo-f29.png" ) no-repeat left top;
 }
 
 /* Mõõdukas hoovihm, Moderate shower */
 .moderate_shower {
-    background:     url( "/images/ilm//moodukas-hoovihm-paev-f40.png" ) no-repeat left top;
+    background:     url( "../images/ilm/moodukas-hoovihm-paev-f40.png" ) no-repeat left top;
 }
 .night .moderate_shower {
-    background:     url( "/images/ilm//moodukas-hoovihm-oo-f41.png" ) no-repeat left top;
+    background:     url( "../images/ilm/moodukas-hoovihm-oo-f41.png" ) no-repeat left top;
 }
 
 /* Tugev hoovihm, Heavy shower */
 .heavy_shower {
-    background:     url( "/images/ilm//tugev-hoovihm-paev-f34.png" ) no-repeat left top;
+    background:     url( "../images/ilm/tugev-hoovihm-paev-f34.png" ) no-repeat left top;
 }
 .night .heavy_shower {
-    background:     url( "/images/ilm//tugev-hoovihm-oo-f36.png" ) no-repeat left top;
+    background:     url( "../images/ilm/tugev-hoovihm-oo-f36.png" ) no-repeat left top;
 }
 
 /* Nõrk vihm, Light rain */
 .light_rain {
-    background:     url( "/images/ilm//nork-vihm-f29.png" ) no-repeat left top;
+    background:     url( "../images/ilm/nork-vihm-f29.png" ) no-repeat left top;
 }
 
 /* Mõõdukas Vihm, Moderate rain */
 .moderate_rain {
-    background:     url( "/images/ilm//moodukas-vihm-f40.png" ) no-repeat left top;
+    background:     url( "../images/ilm/moodukas-vihm-f40.png" ) no-repeat left top;
 }
 
 /* Tugev vihm, Heavy rain */
 .heavy_rain  {
-    background:     url( "/images/ilm//tugev-vihm-f34.png" ) no-repeat left top;
+    background:     url( "../images/ilm/tugev-vihm-f34.png" ) no-repeat left top;
 }
 
 
 /* Jäide, Risk of glaze */
 .risk_of_glaze {
-    background:     url("/images/ilm//jaide-f42.png") no-repeat left top;
+    background:     url("../images/ilm/jaide-f42.png") no-repeat left top;
 }
 
 /* Nõrk lörtsisadu, Light sleet */
 .light_sleet {
-    background:     url("/images/ilm//nork-lortsisadu-f28.png") no-repeat left top;
+    background:     url("../images/ilm/nork-lortsisadu-f28.png") no-repeat left top;
 }
 
 /* Mõõdukas lörtsisadu, Moderate sleet */
 .moderate_sleet {
-    background:     url("/images/ilm//moodukas-lortsisadu-f37.png") no-repeat left top;
+    background:     url("../images/ilm/moodukas-lortsisadu-f37.png") no-repeat left top;
 }
 
 /* Nõrk lumesadu, Light snowfall */
 .light_snowfall {
-    background:     url( "/images/ilm//nork-lumesadu-f50.png" ) no-repeat left top;
+    background:     url( "../images/ilm/nork-lumesadu-f50.png" ) no-repeat left top;
 }
 
 /* Mõõdukas lumesadu, Moderate snowfall */
 .moderate_snowfall {
-    background:     url( "/images/ilm//moodukas-lumesadu-f37.png" ) no-repeat left top;
+    background:     url( "../images/ilm/moodukas-lumesadu-f37.png" ) no-repeat left top;
 }
 
 /* Tugev lumesadu, Heavy snowfall */
 .heavy_snowfall {
-    background:     url( "/images/ilm//tugev-lumesadu-f37.png" ) no-repeat left top;
+    background:     url( "../images/ilm/tugev-lumesadu-f37.png" ) no-repeat left top;
 }
 
 /* Üldtuisk, Snowstorm */
 .snowstorm {
-    background:     url("/images/ilm//lumetuisk-f83.png") no-repeat left top;
+    background:     url("../images/ilm/lumetuisk-f83.png") no-repeat left top;
 }
 
 /* Pinnatuisk, Drifting snow */
 .drifting_snow {
-    background:     url("/images/ilm//pinnatuisk-f66.png") no-repeat left top;
+    background:     url("../images/ilm/pinnatuisk-f66.png") no-repeat left top;
 }
 
 /* Rahe, Hail */
 .hail {
-    background:     url("/images/ilm//rahe-f39.png") no-repeat left top;
+    background:     url("../images/ilm/rahe-f39.png") no-repeat left top;
 }
 
 /* Uduvine, Mist */
 .mist {
-    background:     url("/images/ilm//uduvine-f41.png") no-repeat left top;
+    background:     url("../images/ilm/uduvine-f41.png") no-repeat left top;
 }
 
 /* Udu, Fog */
 .fog {
-    background:     url("/images/ilm//udu-f60.png") no-repeat left top;
+    background:     url("../images/ilm/udu-f60.png") no-repeat left top;
 }
 
 /* Äike, Thunder */
 .thunder {
-    background:     url("/images/ilm//aike-f24.png") no-repeat left top;
+    background:     url("../images/ilm/aike-f24.png") no-repeat left top;
 }
 
 /* Äikesevihm, Thunderstorm */
 .thunderstorm {
-    background:     url("/images/ilm//aikesevihm-f45.png") no-repeat left top;
+    background:     url("../images/ilm/aikesevihm-f45.png") no-repeat left top;
 }
 
 .weather-icon {

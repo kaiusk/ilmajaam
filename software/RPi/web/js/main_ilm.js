@@ -91,7 +91,7 @@ jQuery(document).ready(function($) {
 		}, 1000);
 	})();
 
-	(function updateWeatherForecast() {
+	/*(function updateWeatherForecast() {
 		$.getJSON('http://api.openweathermap.org/data/2.5/forecast/daily', weatherParams, function(json, textStatus) {
 			
 			var forecastData = {};
@@ -114,11 +114,7 @@ jQuery(document).ready(function($) {
 						'deg'      : forecast.deg,
 						'icon'	   : forecast.weather[0].icon
 					};
-				} /*else {
-					forecastData[dateKey]['temp_min'] = (forecast.main.temp < forecastData[dateKey]['temp_min']) ? forecast.main.temp : forecastData[dateKey]['temp_min'];
-					forecastData[dateKey]['temp_max'] = (forecast.main.temp > forecastData[dateKey]['temp_max']) ? forecast.main.temp : forecastData[dateKey]['temp_max'];
-				}*/
-
+				}
 			}
 			delete forecastData[homme];
 						
@@ -185,5 +181,6 @@ jQuery(document).ready(function($) {
 			updateWeatherForecast();
 		}, 60000);
 	})();
+	*/
 
 });

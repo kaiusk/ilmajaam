@@ -114,31 +114,16 @@ $yr_link_target = '_top';
 //greit ved feilsøking, men bør ikke være aktivert i drift.
 $yr_vis_php_feilmeldinger = true;
 
-
-///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  /
-///  ///  ///  ///  ///  Code ///  ///  ///  ///  ///  ///  ///  ///  ///  //
-//  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
-// Skru på feilmeldinger i starten
-if ($yr_vis_php_feilmeldinger) {
-    error_reporting(E_ALL);
-    ini_set('display_errors', true);
-} else {
-    error_reporting(0);
-    ini_set('display_errors', false);
-}
-
 //Opprett en komunikasjon med yr
 $yr_xmlparse = new YRComms();
 $z = $yr_xmlparse->getXMLTree($yr_url, true, $yr_timeout);
 $x = $z['TABULAR'];
 $big_data = array();
-//return;
 foreach ($x as $t)
     foreach ($t as $q)
         foreach ($q as $data) {
             $kp = strtotime($data["ATTRIBUTES"]["FROM"]);
-            if (date("Y-m-d", $kp) > date("Y-m-d")) {
-                //print_r($data);
+            if (date("Y-m-d", $kp) > date("Y-m-d", strtotime("+1 day"))) {
                 $big_data[date("Y-m-d", $kp)][$data['ATTRIBUTES']['PERIOD']] = array(
                     'ilm'=>$data['SYMBOL'][0]['ATTRIBUTES']['NUMBER'],
                     'temp'=>$data['TEMPERATURE'][0]['ATTRIBUTES']['VALUE'],
@@ -160,23 +145,12 @@ foreach ($x as $t)
                 //echo "<img src='http://www.ilmateenistus.ee/wp-content/themes/emhi2013/images/wind/".$tuul.".png' alt='".$data['WINDDIRECTION'][0]['ATTRIBUTES']['DEG']."'>";
             }
         }
-
-print_r($big_data);
 return;
 
 //Opprett en presentasjon
 $yr_xmldisplay = new YRDisplay();
 
 $yr_try_curl = true;
-
-//Gjenomfør oppdraget basta bom.
-die($yr_xmldisplay->generateHTMLCached($yr_url, $yr_name, $yr_xmlparse, $yr_url, $yr_try_curl, $yr_use_header, $yr_use_footer, $yr_use_banner, $yr_use_text, $yr_use_links, $yr_use_table, $yr_maxage, $yr_timeout, $yr_link_target));
-
-
-///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  /
-///  ///  ///  ///  ///  Hjelpekode starter her   ///  ///  ///  ///  ///  //
-//  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
-
 
 function retar($array, $html = false, $level = 0) {
     if (is_array($array)) {
@@ -206,7 +180,6 @@ function retar($array, $html = false, $level = 0) {
     }
     return $output;
 }
-
 
 // Klasse for lesing og tilrettelegging av YR data
 class YRComms
