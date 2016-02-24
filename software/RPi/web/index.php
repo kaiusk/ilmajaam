@@ -63,9 +63,10 @@ if (strpos($f[0], "YES") > 0) {
 	<div id='graph-container'></div>
 	<hr/>
 	<div class="forecast small dimmed"></div>
-	<div class="small dimmed">
+	<div class="large dimmed">
 	<p>Viimase 24h min: <span id="min24"></span>&deg; ja max: <span id="maks24"></span>&deg;</p>
 	</div>
+	<div class="xxsmall bottom dimmed"><?php echo exec("/var/www/peegel/myip.sh");?></div>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/moment-with-langs.min.js"></script>
