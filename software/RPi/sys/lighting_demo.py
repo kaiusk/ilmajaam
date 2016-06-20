@@ -4,8 +4,10 @@ from RPi_AS3935 import RPi_AS3935
 import RPi.GPIO as GPIO
 import time
 from datetime import datetime
+import logging
 
 GPIO.setmode(GPIO.BOARD)
+logging.basicConfig(filename='/var/log/pikne.log',level=logging.DEBUG,format='%(asctime)s %(message)s')
 
 # Rev. 1 Raspberry Pis should leave bus set at 0, while rev. 2 Pis should set
 # bus equal to 1. The address should be changed to match the address of the
@@ -33,6 +35,7 @@ def handle_interrupt(channel):
         print "We sensed lightning!"
         print "It was " + str(distance) + "km away. (%s)" % now
         print ""
+        logging.warning(str(distance))
 
 pin = 7
 
