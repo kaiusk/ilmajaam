@@ -14,8 +14,8 @@ header('Content-Type: text/html; charset=utf-8');
 setlocale(LC_TIME, 'et_EE.UTF-8');
 date_default_timezone_set("Europe/Tallinn");
 $koord = array(59.409601, 26.725483);
-$tous = date_sunrise(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 2);
-$loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 2);
+$tous = date_sunrise(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
+$loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
 
 function yr_rida($id) {
     global $big_data;
@@ -27,28 +27,28 @@ function yr_rida($id) {
             $oo = "";
         echo "<td>";
         echo "<span class='ilm'><img src='http://api.yr.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/png' alt=''></span>";
-        if ($data["temp"]>0)
+        if ($data["temp"] > 0)
             $t_cl = "pos";
         else
             $t_cl = "neg";
         echo "<span class='temp $t_cl'>" . $data["temp"] . "</span>";
-        if ($data["suund"]>340 || $data["suund"]<20)
+        if ($data["suund"] > 340 || $data["suund"] < 20)
             $wd = "N";
-        elseif ($data["suund"]>19 && $data["suund"]<70)
+        elseif ($data["suund"] > 19 && $data["suund"] < 70)
             $wd = "NE";
-        elseif ($data["suund"]>69 && $data["suund"]<110)
+        elseif ($data["suund"] > 69 && $data["suund"] < 110)
             $wd = "E";
-        elseif ($data["suund"]>109 && $data["suund"]<160)
+        elseif ($data["suund"] > 109 && $data["suund"] < 160)
             $wd = "SE";
-        elseif ($data["suund"]>159 && $data["suund"]<200)
+        elseif ($data["suund"] > 159 && $data["suund"] < 200)
             $wd = "S";
-        elseif ($data["suund"]>199 && $data["suund"]<250)
+        elseif ($data["suund"] > 199 && $data["suund"] < 250)
             $wd = "SW";
-        elseif ($data["suund"]>249 && $data["suund"]<290)
+        elseif ($data["suund"] > 249 && $data["suund"] < 290)
             $wd = "W";
         else
             $wd = "NW";
-        echo "<span class='tuul'><img src='images/wind/".$wd.".png' alt='".$data['suund']."'></span>";
+        echo "<span class='tuul'><img src='images/wind/" . $wd . ".png' alt='" . $data['suund'] . "'></span>";
         echo "</td>";
     }
 }
@@ -63,10 +63,10 @@ function yr_rida($id) {
             <div class="large time"></div>
         </td>
         <td>
-            <div class="windsun large dimmed"><span class="wi wi-sunrise" style="color: yellow; padding-right: 10px;"></span><?=$tous; ?>&nbsp;&nbsp;&nbsp;</div>
+            <div class="windsun large dimmed"><span class="wi wi-sunrise" style="color: yellow; padding-right: 10px;"></span><?= $tous; ?>&nbsp;&nbsp;&nbsp;</div>
         </td>
         <td>
-            <div class="windsun large dimmed"><span class="wi wi-sunset" style="color: yellow; padding-right: 10px;"></span><?=$loojang; ?></div>
+            <div class="windsun large dimmed"><span class="wi wi-sunset" style="color: yellow; padding-right: 10px;"></span><?= $loojang; ?></div>
         </td>
     </tr>
     </tbody>
@@ -82,7 +82,7 @@ function yr_rida($id) {
             <th>Aeg</th>
             <?php
             foreach (array_keys($big_data) as $kuup) {
-                echo "<th>".strftime("%a %e.%b", strtotime($kuup))."</th>";
+                echo "<th>" . strftime("%a %e.%b", strtotime($kuup)) . "</th>";
             }
             ?>
         </tr>
@@ -116,6 +116,20 @@ function yr_rida($id) {
     </table>
 
 
+</div>
+<div class="small dimmed">
+
+    <?php
+    $log = file("/var/log/pikne.log");
+    $viimane = end($log);
+    if ($viimane > "") {
+        list($kuup, $aeg, $dist) = explode(" ", $viimane);
+        if ($aeg)
+            $aeg = substr($aeg, 0, 8);
+        if (strtotime("$kuup $aeg") > (time() - 4 * 3600))
+            echo "<div class='large'><img src=\"images/ilm/bolt.png\" width=128 height=128 alt=\"\"/> " . substr($aeg, 0, 5) . ", kaugus " . $dist . "km</div>";
+    }
+    ?>
 </div>
 </body>
 <script src="js/jquery.js"></script>
