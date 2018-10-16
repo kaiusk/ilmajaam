@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
 		});
 	})();
 
-	(function valis() {
+	/*(function valis() {
 		$.getJSON('maksmin.php', function(data) {
 			$("#min24").html(data["min"]);
 			$("#maks24").html(data["maks"]);
@@ -76,7 +76,7 @@ jQuery(document).ready(function($) {
 			$("#vihm").html(data["vihm"]);
 			setTimeout(valis, 60000);
 		});
-	})();
+	})();*/
 
 	(function updateTime() {
 		var now = moment();
@@ -90,97 +90,5 @@ jQuery(document).ready(function($) {
 			updateTime();
 		}, 1000);
 	})();
-
-	/*(function updateWeatherForecast() {
-		$.getJSON('http://api.openweathermap.org/data/2.5/forecast/daily', weatherParams, function(json, textStatus) {
-			
-			var forecastData = {};
-			var homme = false;
-			for (var i in json.list) {
-				var forecast = json.list[i];
-				var dateKey = forecast.dt; //_txt.substring(0, 10);
-				if (i==0) homme = dateKey;
-				
-				if (forecastData[dateKey] == undefined) {
-					forecastData[dateKey] = {
-						'timestamp' : forecast.dt * 1000,
-						'temp_min' : forecast.temp.night,
-						'temp_max' : forecast.temp.max,
-						'humidity' : forecast.humidity,
-						'pressure' : forecast.pressure,
-						'rain'	   : forecast.rain,
-						'snow'	   : forecast.snow,
-						'speed'	   : forecast.speed,
-						'deg'      : forecast.deg,
-						'icon'	   : forecast.weather[0].icon
-					};
-				}
-			}
-			delete forecastData[homme];
-						
-			var forecastTable = $('<table />').addClass('forecast-table');
-			var opacity = 1;
-			var row = $('<tr />').css('opacity', opacity);
-			row.append("<td class='dimmed xxsmall' style='width: 80px'>Päev</td>");
-			for (var i in forecastData) {
-				var forecast = forecastData[i];
-				var dt = new Date(forecast.timestamp);
-				row.append($('<td/>').html(moment.weekdaysShort(dt.getDay())));			
-			}
-			forecastTable.append(row);
-
-			var row = $('<tr />').css('opacity', opacity);
-			row.append("<td></td>");
-			for (var i in forecastData) {
-				var forecast = forecastData[i];
-				var iconClass = iconTable[forecast.icon];
-				var sp = $('<span/>').addClass('weather-icon').addClass(iconClass);
-				row.append($('<td/>').addClass('iko').html(sp));
-			}
-			forecastTable.append(row);
-			
-			var row = $('<tr />').css('opacity', opacity);
-			row.append("<td class='dimmed xxsmall'>t&deg;</td>");
-			for (var i in forecastData) {
-				var forecast = forecastData[i];
-				row.append($('<td/>').addClass('day').html(roundVal(forecast.temp_min)+"..."+roundVal(forecast.temp_max)));
-			}
-			forecastTable.append(row);
-			
-			var row = $('<tr />').css('opacity', opacity);
-			row.append("<td class='dimmed xxsmall'>Tuul</td>");
-			for (var i in forecastData) {
-				var forecast = forecastData[i];
-				var suund = roundVal(forecast.deg);
-				var sico = "";
-				if (suund>338 || suund<22) sico = 'S';
-				else if (suund>22 || suund<67) sico = 'SW';
-				else if (suund>67 || suund<112) sico = 'W';
-				else if (suund>112 || suund<157) sico = 'NW';
-				else if (suund>157 || suund<202) sico = 'N';
-				else if (suund>202 || suund<247) sico = 'NE';
-				else if (suund>247 || suund<292) sico = 'E';
-				else if (suund>292 || suund<338) sico = 'SE';
-				row.append($('<td/>').addClass('day').html(roundVal(forecast.speed)+" <img src='images/wind/"+sico+".png' alt=''/>"));
-			}
-			forecastTable.append(row);
-			
-			var row = $('<tr />').css('opacity', opacity);
-			row.append("<td class='dimmed xxsmall'>Rõhk</td>");
-			for (var i in forecastData) {
-				var forecast = forecastData[i];
-				row.append($('<td/>').addClass('day').html(roundVal(forecast.pressure)));
-			}
-			forecastTable.append(row);
-			
-
-			$('.forecast').updateWithText(forecastTable, 1000);
-		});
-
-		setTimeout(function() {
-			updateWeatherForecast();
-		}, 60000);
-	})();
-	*/
-
+	
 });

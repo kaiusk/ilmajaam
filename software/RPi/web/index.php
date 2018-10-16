@@ -26,7 +26,8 @@ function yr_rida($id) {
         else
             $oo = "";
         echo "<td>";
-        echo "<span class='ilm'><img src='http://api.yr.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/png' alt=''></span>";
+        //https://api.met.no/weatherapi/weathericon/1.1/?symbol=7&is_night=1&content_type=image/png
+        echo "<span class='ilm'><img src='https://api.met.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/svg%2Bxml' alt=''></span>";
         if ($data["temp"] > 0)
             $t_cl = "pos";
         else
@@ -120,8 +121,23 @@ function yr_rida($id) {
 <div class="small dimmed">
 
     <?php
+    $pd = array();//"[Date.UTC(".date("Y,n,j,G,i,s", strtotime("-1 hours")).",0),0]");
     $log = file("/var/log/pikne.log");
     $viimane = end($log);
+    $arr = array_slice($log, -50);
+    foreach ($arr as $r) {
+        //2016-07-03 14:09:25,148 5
+        //[Date.UTC(2013,5,2,10,12),1],
+
+        list($kuup, $aeg, $dist) = explode(" ", $r);
+        list($aeg, $ms) = explode(",", $aeg);
+        //if ($aeg)
+        //    $aeg = substr($aeg, 0, 8);
+
+        $paeg = strtotime("$kuup $aeg");
+        $pd[] = "[Date.UTC(".date("Y,n,j,G,i,s", $paeg).",$ms),".intval(50-$dist)."]";
+    }
+
     if ($viimane > "") {
         list($kuup, $aeg, $dist) = explode(" ", $viimane);
         if ($aeg)
@@ -131,12 +147,14 @@ function yr_rida($id) {
     }
     ?>
 </div>
+<div id="pikse_kaart"></div>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/moment-with-langs.min.js"></script>
 <script src="js/main_ilm.js?nocache=<?php echo md5(microtime()) ?>"></script>
 <script type="text/javascript">
     var v = 14;
+    var pikne_data = [<?php echo implode(",", $pd);?>];
     if (typeof _var == "undefined") {
         var _var = {};
     }

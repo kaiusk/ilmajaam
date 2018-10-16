@@ -449,7 +449,8 @@ class YRDisplay
         'l&otilde;unast', 'l&otilde;unast-edelast', 'edelast', 'edelast-l&auml;&auml;nest',
         'l&auml;&auml;nest', 'l&auml;&auml;nest-loodests', 'loodest', 'p&otilde;hjast-loodest', 'p&otilde;hjast');
     // Hvor hentes bilder til symboler fra?
-    var $yr_imgpath = 'http://www.yr.no/grafikk/sym/b38';
+    //var $yr_imgpath = 'http://www.yr.no/grafikk/sym/b38';
+    var $yr_imgpath = 'http://www.yr.no/grafikk/sym/v2017/png/48/';
 
 
     //Generer header for varselet
