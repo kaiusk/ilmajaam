@@ -20,37 +20,45 @@ $loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583
 function yr_rida($id) {
     global $big_data;
     foreach (array_keys($big_data) as $kuup) {
-        $data = $big_data[$kuup][$id];
-        if ($id == 0 || $id == 3)
-            $oo = "is_night=1;";
-        else
-            $oo = "";
-        echo "<td>";
-        //https://api.met.no/weatherapi/weathericon/1.1/?symbol=7&is_night=1&content_type=image/png
-        echo "<span class='ilm'><img src='https://api.met.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/svg%2Bxml' alt=''></span>";
-        if ($data["temp"] > 0)
-            $t_cl = "pos";
-        else
-            $t_cl = "neg";
-        echo "<span class='temp $t_cl'>" . $data["temp"] . "</span>";
-        if ($data["suund"] > 340 || $data["suund"] < 20)
-            $wd = "N";
-        elseif ($data["suund"] > 19 && $data["suund"] < 70)
-            $wd = "NE";
-        elseif ($data["suund"] > 69 && $data["suund"] < 110)
-            $wd = "E";
-        elseif ($data["suund"] > 109 && $data["suund"] < 160)
-            $wd = "SE";
-        elseif ($data["suund"] > 159 && $data["suund"] < 200)
-            $wd = "S";
-        elseif ($data["suund"] > 199 && $data["suund"] < 250)
-            $wd = "SW";
-        elseif ($data["suund"] > 249 && $data["suund"] < 290)
-            $wd = "W";
-        else
-            $wd = "NW";
-        echo "<span class='tuul'><img src='images/wind/" . $wd . ".png' alt='" . $data['suund'] . "'></span>";
-        echo "</td>";
+        if (isset($big_data[$kuup][$id])) {
+            $data = $big_data[$kuup][$id];
+            if ($id == 0 || $id == 3) {
+                $oo = "is_night=1;";
+            } else {
+                $oo = "";
+            }
+            echo "<td>";
+            echo "<span class='ilm'>
+<img src='https://api.met.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/svg%2Bxml' alt='' width='36px;'>
+</span>";
+            if ($data["temp"] > 0) {
+                $t_cl = "pos";
+            } else {
+                $t_cl = "neg";
+            }
+            echo "<span class='temp $t_cl'>" . $data["temp"] . "</span>";
+            if ($data["suund"] > 340 || $data["suund"] < 20) {
+                $wd = "N";
+            } elseif ($data["suund"] > 19 && $data["suund"] < 70) {
+                $wd = "NE";
+            } elseif ($data["suund"] > 69 && $data["suund"] < 110) {
+                $wd = "E";
+            } elseif ($data["suund"] > 109 && $data["suund"] < 160) {
+                $wd = "SE";
+            } elseif ($data["suund"] > 159 && $data["suund"] < 200) {
+                $wd = "S";
+            } elseif ($data["suund"] > 199 && $data["suund"] < 250) {
+                $wd = "SW";
+            } elseif ($data["suund"] > 249 && $data["suund"] < 290) {
+                $wd = "W";
+            } else {
+                $wd = "NW";
+            }
+            echo "<span class='tuul'><img src='images/wind/" . $wd . ".png' alt='" . $data['suund'] . "'></span>";
+            echo "</td>";
+        } else {
+            echo "<td></td>";
+        }
     }
 }
 
@@ -64,10 +72,15 @@ function yr_rida($id) {
             <div class="large time"></div>
         </td>
         <td>
-            <div class="windsun large dimmed"><span class="wi wi-sunrise" style="color: yellow; padding-right: 10px;"></span><?= $tous; ?>&nbsp;&nbsp;&nbsp;</div>
+            <div class="windsun large dimmed"><span class="wi wi-sunrise"
+                                                    style="color: yellow; padding-right: 10px;"></span><?= $tous; ?>
+                &nbsp;&nbsp;&nbsp;
+            </div>
         </td>
         <td>
-            <div class="windsun large dimmed"><span class="wi wi-sunset" style="color: yellow; padding-right: 10px;"></span><?= $loojang; ?></div>
+            <div class="windsun large dimmed"><span class="wi wi-sunset"
+                                                    style="color: yellow; padding-right: 10px;"></span><?= $loojang; ?>
+            </div>
         </td>
     </tr>
     </tbody>
@@ -118,43 +131,13 @@ function yr_rida($id) {
 
 
 </div>
-<div class="small dimmed">
-
-    <?php
-    $pd = array();//"[Date.UTC(".date("Y,n,j,G,i,s", strtotime("-1 hours")).",0),0]");
-    $log = file("/var/log/pikne.log");
-    $viimane = end($log);
-    $arr = array_slice($log, -50);
-    foreach ($arr as $r) {
-        //2016-07-03 14:09:25,148 5
-        //[Date.UTC(2013,5,2,10,12),1],
-
-        list($kuup, $aeg, $dist) = explode(" ", $r);
-        list($aeg, $ms) = explode(",", $aeg);
-        //if ($aeg)
-        //    $aeg = substr($aeg, 0, 8);
-
-        $paeg = strtotime("$kuup $aeg");
-        $pd[] = "[Date.UTC(".date("Y,n,j,G,i,s", $paeg).",$ms),".intval(50-$dist)."]";
-    }
-
-    if ($viimane > "") {
-        list($kuup, $aeg, $dist) = explode(" ", $viimane);
-        if ($aeg)
-            $aeg = substr($aeg, 0, 8);
-        if (strtotime("$kuup $aeg") > (time() - 4 * 3600))
-            echo "<div class='large'><img src=\"images/ilm/bolt.png\" width=128 height=128 alt=\"\"/> " . substr($aeg, 0, 5) . ", kaugus " . $dist . "km</div>";
-    }
-    ?>
-</div>
-<div id="pikse_kaart"></div>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/moment-with-langs.min.js"></script>
 <script src="js/main_ilm.js?nocache=<?php echo md5(microtime()) ?>"></script>
 <script type="text/javascript">
     var v = 14;
-    var pikne_data = [<?php echo implode(",", $pd);?>];
+
     if (typeof _var == "undefined") {
         var _var = {};
     }

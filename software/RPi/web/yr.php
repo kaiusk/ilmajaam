@@ -119,32 +119,35 @@ $yr_xmlparse = new YRComms();
 $z = $yr_xmlparse->getXMLTree($yr_url, true, $yr_timeout);
 $x = $z['TABULAR'];
 $big_data = array();
-foreach ($x as $t)
-    foreach ($t as $q)
+foreach ($x as $t) {
+    foreach ($t as $q) {
         foreach ($q as $data) {
             $kp = strtotime($data["ATTRIBUTES"]["FROM"]);
             if (date("Y-m-d", $kp) > date("Y-m-d", strtotime("+1 day"))) {
                 $big_data[date("Y-m-d", $kp)][$data['ATTRIBUTES']['PERIOD']] = array(
-                    'ilm'=>$data['SYMBOL'][0]['ATTRIBUTES']['NUMBER'],
-                    'temp'=>$data['TEMPERATURE'][0]['ATTRIBUTES']['VALUE'],
-                    'suund'=>round($data['WINDDIRECTION'][0]['ATTRIBUTES']['DEG']/100,1)*100,
-                    'kiirus'=>$data['WINDSPEED'][0]['ATTRIBUTES']['MPS'],
-                    'rohk'=>$data['PRESSURE'][0]['ATTRIBUTES']['VALUE'],
-                    'vihm'=>$data['PRECIPITATION'][0]['ATTRIBUTES']['VALUE'],
-                    );
+                    'ilm'    => $data['SYMBOL'][0]['ATTRIBUTES']['NUMBER'],
+                    'temp'   => $data['TEMPERATURE'][0]['ATTRIBUTES']['VALUE'],
+                    'suund'  => round($data['WINDDIRECTION'][0]['ATTRIBUTES']['DEG'] / 100, 1) * 100,
+                    'kiirus' => $data['WINDSPEED'][0]['ATTRIBUTES']['MPS'],
+                    'rohk'   => $data['PRESSURE'][0]['ATTRIBUTES']['VALUE'],
+                    'vihm'   => $data['PRECIPITATION'][0]['ATTRIBUTES']['VALUE'],
+                );
                 $ikoon = $data['SYMBOL'][0]['ATTRIBUTES']['NUMBER'];
 
-                if ($data['ATTRIBUTES']['PERIOD'] == 0 or $data['ATTRIBUTES']['PERIOD'] == 3)
+                if ($data['ATTRIBUTES']['PERIOD'] == 0 or $data['ATTRIBUTES']['PERIOD'] == 3) {
                     $oo = "is_night=1;";
-                else
+                } else {
                     $oo = "";
+                }
 
                 //echo "<img src='http://api.yr.no/weatherapi/weathericon/1.1/?symbol=".$ikoon.";".$oo."content_type=image/png' alt='".$data['SYMBOL'][0]['ATTRIBUTES']['NAME']."'>";
                 //echo $data['TEMPERATURE'][0]['ATTRIBUTES']['VALUE'];
-                $tuul = substr($data['WINDDIRECTION'][0]['ATTRIBUTES']['CODE'],-2);
+                $tuul = substr($data['WINDDIRECTION'][0]['ATTRIBUTES']['CODE'], -2);
                 //echo "<img src='http://www.ilmateenistus.ee/wp-content/themes/emhi2013/images/wind/".$tuul.".png' alt='".$data['WINDDIRECTION'][0]['ATTRIBUTES']['DEG']."'>";
             }
         }
+    }
+}
 return;
 
 //Opprett en presentasjon
@@ -157,9 +160,13 @@ function retar($array, $html = false, $level = 0) {
         $space = $html ? "&nbsp;" : " ";
         $newline = $html ? "<br />" : "\n";
         $spaces = '';
-        for ($i = 1; $i <= 3; $i++) $spaces .= $space;
+        for ($i = 1; $i <= 3; $i++) {
+            $spaces .= $space;
+        }
         $tabs = $spaces;
-        for ($i = 1; $i <= $level; $i++) $tabs .= $spaces;
+        for ($i = 1; $i <= $level; $i++) {
+            $tabs .= $spaces;
+        }
         $output = "Array(" . $newline . $newline;
         $cnt = sizeof($array);
         $j = 0;
@@ -169,9 +176,13 @@ function retar($array, $html = false, $level = 0) {
                 $level++;
                 $value = retar($value, $html, $level);
                 $level--;
-            } else $value = "'$value'";
+            } else {
+                $value = "'$value'";
+            }
             $output .= "$tabs'$key'=> $value";
-            if ($j < $cnt) $output .= ',';
+            if ($j < $cnt) {
+                $output .= ',';
+            }
             $output .= $newline;
         }
         $output .= $tabs . ')' . $newline;
@@ -188,7 +199,9 @@ class YRComms
     //Generer gyldig yr.no array med værdata byttet ut med en enkel feilmelding
     public static function parseTime($yr_time, $do24_00 = false) {
         $yr_time = str_replace(":00:00", "", $yr_time);
-        if ($do24_00) $yr_time = str_replace("00", "24", $yr_time);
+        if ($do24_00) {
+            $yr_time = str_replace("00", "24", $yr_time);
+        }
         return $yr_time;
     }
 
@@ -241,27 +254,46 @@ class YRComms
             $tree[$vals[$i]['tag']][]['ATTRIBUTES'] = $vals[$i]['attributes'];
             $index = count($tree[$vals[$i]['tag']]) - 1;
             $tree[$vals[$i]['tag']][$index] = array_merge($tree[$vals[$i]['tag']][$index], $this->rearrangeChildren($vals, $i));
-        } else $tree[$vals[$i]['tag']][] = $this->rearrangeChildren($vals, $i);
+        } else {
+            $tree[$vals[$i]['tag']][] = $this->rearrangeChildren($vals, $i);
+        }
         //die("<pre>".retar($tree));
         //Hent ut det vi bryr oss om
-        if (isset($tree['WEATHERDATA'][0]['FORECAST'][0])) return $tree['WEATHERDATA'][0]['FORECAST'][0];
-        else return YrComms::getYrDataErrorMessage('Det oppstod en feil ved behandling av data fra yr.no. Vennligst gjør administrator oppmerksom på dette! Teknisk: data har feil format.');
+        if (isset($tree['WEATHERDATA'][0]['FORECAST'][0])) {
+            return $tree['WEATHERDATA'][0]['FORECAST'][0];
+        } else {
+            return YrComms::getYrDataErrorMessage('Det oppstod en feil ved behandling av data fra yr.no. Vennligst gjør administrator oppmerksom på dette! Teknisk: data har feil format.');
+        }
     }
 
     private function rearrangeChildren($vals, &$i) {
         $children = array(); // Contains node data
         // Sikkerhet: sørg for at all data som parses strippes for farlige ting
-        if (isset($vals[$i]['value'])) $children['VALUE'] = $this->sanitizeString($vals[$i]['value']);
+        if (isset($vals[$i]['value'])) {
+            $children['VALUE'] = $this->sanitizeString($vals[$i]['value']);
+        }
         while (++$i < count($vals)) {
             // Sikkerhet: sørg for at all data som parses strippes for farlige ting
-            if (isset($vals[$i]['value'])) $val = $this->sanitizeString($vals[$i]['value']);
-            else unset($val);
-            if (isset($vals[$i]['type'])) $typ = $this->sanitizeString($vals[$i]['type']);
-            else unset($typ);
-            if (isset($vals[$i]['attributes'])) $atr = $this->sanitizeString($vals[$i]['attributes']);
-            else unset($atr);
-            if (isset($vals[$i]['tag'])) $tag = $this->sanitizeString($vals[$i]['tag']);
-            else unset($tag);
+            if (isset($vals[$i]['value'])) {
+                $val = $this->sanitizeString($vals[$i]['value']);
+            } else {
+                unset($val);
+            }
+            if (isset($vals[$i]['type'])) {
+                $typ = $this->sanitizeString($vals[$i]['type']);
+            } else {
+                unset($typ);
+            }
+            if (isset($vals[$i]['attributes'])) {
+                $atr = $this->sanitizeString($vals[$i]['attributes']);
+            } else {
+                unset($atr);
+            }
+            if (isset($vals[$i]['tag'])) {
+                $tag = $this->sanitizeString($vals[$i]['tag']);
+            } else {
+                unset($tag);
+            }
             // Fyll inn strukturen vær slik vi vil ha den
             switch ($vals[$i]['type']) {
                 case 'cdata':
@@ -271,11 +303,17 @@ class YRComms
                     if (isset($atr)) {
                         $children[$tag][]['ATTRIBUTES'] = $atr;
                         $index = count($children[$tag]) - 1;
-                        if (isset($val)) $children[$tag][$index]['VALUE'] = $val;
-                        else $children[$tag][$index]['VALUE'] = '';
+                        if (isset($val)) {
+                            $children[$tag][$index]['VALUE'] = $val;
+                        } else {
+                            $children[$tag][$index]['VALUE'] = '';
+                        }
                     } else {
-                        if (isset($val)) $children[$tag][]['VALUE'] = $val;
-                        else $children[$tag][]['VALUE'] = '';
+                        if (isset($val)) {
+                            $children[$tag][]['VALUE'] = $val;
+                        } else {
+                            $children[$tag][]['VALUE'] = '';
+                        }
                     }
                     break;
                 case 'open':
@@ -283,7 +321,9 @@ class YRComms
                         $children[$tag][]['ATTRIBUTES'] = $atr;
                         $index = count($children[$tag]) - 1;
                         $children[$tag][$index] = array_merge($children[$tag][$index], $this->rearrangeChildren($vals, $i));
-                    } else $children[$tag][] = $this->rearrangeChildren($vals, $i);
+                    } else {
+                        $children[$tag][] = $this->rearrangeChildren($vals, $i);
+                    }
                     break;
                 case 'close':
                     return $children;
@@ -295,8 +335,12 @@ class YRComms
 
     private function sanitizeString($in) {
         //return $in;
-        if (is_array($in)) return $in;
-        if (null == $in) return null;
+        if (is_array($in)) {
+            return $in;
+        }
+        if (null == $in) {
+            return null;
+        }
         return htmlentities(strip_tags($in));
     }
 
@@ -321,12 +365,20 @@ class YRComms
     private function parseXMLIntoStruct($data) {
         global $yr_datadir;
         $parser = xml_parser_create('ISO-8859-1');
-        if ((0 == $parser) || (FALSE == $parser)) return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Teknisk info: Kunne ikke lage XML parseren.');
+        if ((0 == $parser) || (FALSE == $parser)) {
+            return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Teknisk info: Kunne ikke lage XML parseren.');
+        }
         $vals = array();
         //die('<pre>'.retar($data).'</pre>');
-        if (FALSE == xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1)) return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Teknisk info: Kunne ikke stille inn XML-parseren.');
-        if (0 == xml_parse_into_struct($parser, $data, $vals, $index)) return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Teknisk info: Parsing av XML feilet.');
-        if (FALSE == xml_parser_free($parser)) return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Kunne ikke frigjøre XML-parseren.');
+        if (FALSE == xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1)) {
+            return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Teknisk info: Kunne ikke stille inn XML-parseren.');
+        }
+        if (0 == xml_parse_into_struct($parser, $data, $vals, $index)) {
+            return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Teknisk info: Parsing av XML feilet.');
+        }
+        if (FALSE == xml_parser_free($parser)) {
+            return $this->getYrDataErrorMessage('Det oppstod en feil mens værdata ble forsøkt hentet fra yr.no. Kunne ikke frigjøre XML-parseren.');
+        }
         //die('<pre>'.retar($vals).'</pre>');
         return $vals;
     }
@@ -346,32 +398,36 @@ class YRComms
         if (false != $data) {
             //Jippi vi klarte det med vanlig fopen url wrappers!
         } // Vanlig fopen_wrapper feilet, men vi har cURL tilgjengelig
-        else if ($try_curl && function_exists('curl_init')) {
-            $lokal_xml_url = $yr_datadir . '/curl.temp.xml';
-            $data = '';
-            $ch = curl_init($xml_url);
-            // Åpne den lokale temp filen for skrive tilgang (med cURL hooks enablet)
-            $fp = fopen($lokal_xml_url, "w");
-            // Last fra yr.no til lokal kopi med curl
-            curl_setopt($ch, CURLOPT_FILE, $fp);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, '');
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-            curl_exec($ch);
-            curl_close($ch);
-            // Lukk lokal kopi
-            fclose($fp);
-            // Åpne lokal kopi igjen og les in alt innholdet
-            $data = file_get_contents($lokal_xml_url, 0, $ctx);
-            //Slett temp data
-            unlink($lokal_xml_url);
-            // Sjekk for feil
-            if (false == $data) $data = $this->getYrXMLErrorMessage('Det oppstod en feil mens værdata ble lest fra yr.no. Teknisk info: Mest antakelig: kobling feilet. Nest mest antakelig: Det mangler støtte for fopen wrapper, og cURL feilet også. Minst antakelig: cURL har ikke rettigheter til å lagre temp.xml');
-        } // Vi har verken fopen_wrappers eller cURL
         else {
-            $data = $this->getYrXMLErrorMessage('Det oppstod en feil mens værdata ble forsøkt lest fra yr.no. Teknisk info: Denne PHP-installasjon har verken URL enablede fopen_wrappers eller cURL. Dette gjør det umulig å hente ned værdata. Se imiddlertid følgende dokumentasjon: http://no.php.net/manual/en/wrappers.php, http://no.php.net/manual/en/book.curl.php');
-            //die('<pre>LO:'.retar($data));
+            if ($try_curl && function_exists('curl_init')) {
+                $lokal_xml_url = $yr_datadir . '/curl.temp.xml';
+                $data = '';
+                $ch = curl_init($xml_url);
+                // Åpne den lokale temp filen for skrive tilgang (med cURL hooks enablet)
+                $fp = fopen($lokal_xml_url, "w");
+                // Last fra yr.no til lokal kopi med curl
+                curl_setopt($ch, CURLOPT_FILE, $fp);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, '');
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+                curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+                curl_exec($ch);
+                curl_close($ch);
+                // Lukk lokal kopi
+                fclose($fp);
+                // Åpne lokal kopi igjen og les in alt innholdet
+                $data = file_get_contents($lokal_xml_url, 0, $ctx);
+                //Slett temp data
+                unlink($lokal_xml_url);
+                // Sjekk for feil
+                if (false == $data) {
+                    $data = $this->getYrXMLErrorMessage('Det oppstod en feil mens værdata ble lest fra yr.no. Teknisk info: Mest antakelig: kobling feilet. Nest mest antakelig: Det mangler støtte for fopen wrapper, og cURL feilet også. Minst antakelig: cURL har ikke rettigheter til å lagre temp.xml');
+                }
+            } // Vi har verken fopen_wrappers eller cURL
+            else {
+                $data = $this->getYrXMLErrorMessage('Det oppstod en feil mens værdata ble forsøkt lest fra yr.no. Teknisk info: Denne PHP-installasjon har verken URL enablede fopen_wrappers eller cURL. Dette gjør det umulig å hente ned værdata. Se imiddlertid følgende dokumentasjon: http://no.php.net/manual/en/wrappers.php, http://no.php.net/manual/en/book.curl.php');
+                //die('<pre>LO:'.retar($data));
+            }
         }
         //die('<pre>XML for:'.$xml_url.' WAS: '.$data);
         // Når vi har kommet hit er det noe som tyder på at vi har lykkes med å laste værdata, ller i det minste lage en teilmelding som beskriver eventuelle problemer
@@ -523,7 +579,9 @@ EOT;
     public function getWeatherText() {
         if ((isset($this->yr_data['TEXT'])) && (isset($this->yr_data['TEXT'][0]['LOCATION'])) && (isset($this->yr_data['TEXT'][0]['LOCATION'][0]['ATTRIBUTES']))) {
             $yr_place = $this->yr_data['TEXT'][0]['LOCATION'][0]['ATTRIBUTES']['NAME'];
-            if (!isset($this->yr_data['TEXT'][0]['LOCATION'][0]['TIME'])) return;
+            if (!isset($this->yr_data['TEXT'][0]['LOCATION'][0]['TIME'])) {
+                return;
+            }
             foreach ($this->yr_data['TEXT'][0]['LOCATION'][0]['TIME'] as $yr_var2) {
                 // Små bokstaver
                 $l = (YRComms::convertEncodingUTF($yr_var2['TITLE'][0]['VALUE']));
@@ -556,9 +614,11 @@ EOT;
 
     //Generer header for værdatatabellen
 
-    public function generateHTMLCached($url, $name, $xml, $url, $try_curl, $useHtmlHeader = true, $useHtmlFooter = true, $useBanner = true, $useText = true, $useLinks = true, $useTable = true, $maxage = 0, $timeout = 10, $urlTarget = '_top') {
+    /*public function generateHTMLCached($url, $name, $xml, $url2, $try_curl, $useHtmlHeader = true, $useHtmlFooter = true, $useBanner = true, $useText = true, $useLinks = true, $useTable = true, $maxage = 0, $timeout = 10, $urlTarget = '_top') {
         //Default to the name in the url
-        if (null == $name || '' == trim($name)) $name = array_pop((explode('/', $url)));
+        if (null == $name || '' == trim($name)) {
+            $name = array_pop(explode('/', $url));
+        }
         $this->handleDataDir(false, htmlentities("$name.$useHtmlHeader.$useHtmlFooter.$useBanner.$useText.$useLinks.$useTable.$maxage.$timeout.$urlTarget"));
         $yr_cached = $this->datapath;
         // Clean name
@@ -588,7 +648,7 @@ EOT;
         }
         // Returner resultat
         return $data['value'];
-    }
+    }*/
 
 
     //Generer innholdet i værdatatabellen
@@ -603,7 +663,9 @@ EOT;
             rmdir($yr_datadir);
         }
         // Create new cache folder with correct permissions
-        if (!is_dir($yr_datadir)) mkdir($yr_datadir, 0300);
+        if (!is_dir($yr_datadir)) {
+            mkdir($yr_datadir, 0300);
+        }
     }
 
     //Generer footer for værdatatabellen
@@ -672,7 +734,9 @@ EOT;
     public function getWeatherTableContent() {
         $thisdate = '';
         $dayctr = 0;
-        if (!isset($this->yr_data['TABULAR'][0]['TIME'])) return;
+        if (!isset($this->yr_data['TABULAR'][0]['TIME'])) {
+            return;
+        }
         $a = $this->yr_data['TABULAR'][0]['TIME'];
         foreach ($a as $yr_var3) {
             list($fromdate, $fromtime) = explode('T', $yr_var3['ATTRIBUTES']['FROM']);
@@ -691,14 +755,18 @@ EOT;
                 $firstcellcont = $displaydate;
                 $thisdate = $fromdate;
                 ++$dayctr;
-            } else $divider = $firstcellcont = '';
+            } else {
+                $divider = $firstcellcont = '';
+            }
 
             // Vis ny dato
             if ($dayctr < 7) {
                 $this->ht .= $divider;
                 // Behandle symbol
                 $imgno = $yr_var3['SYMBOL'][0]['ATTRIBUTES']['NUMBER'];
-                if ($imgno < 10) $imgno = '0' . $imgno;
+                if ($imgno < 10) {
+                    $imgno = '0' . $imgno;
+                }
                 switch ($imgno) {
                     case '01':
                     case '02':
@@ -715,11 +783,15 @@ EOT;
                 }
                 // Behandle regn
                 $rain = $yr_var3['PRECIPITATION'][0]['ATTRIBUTES']['VALUE'];
-                if ($rain == 0.0) $rain = "0";
-                else {
+                if ($rain == 0.0) {
+                    $rain = "0";
+                } else {
                     $rain = intval($rain);
-                    if ($rain < 1) $rain = '&lt;1';
-                    else $rain = round($rain);
+                    if ($rain < 1) {
+                        $rain = '&lt;1';
+                    } else {
+                        $rain = round($rain);
+                    }
                 }
                 $rain .= " mm";
                 // Behandle vind
@@ -727,8 +799,11 @@ EOT;
                 $winddirtext = $this->yr_vindrettninger[$winddir];
                 // Behandle temperatur
                 $temper = round($yr_var3['TEMPERATURE'][0]['ATTRIBUTES']['VALUE']);
-                if ($temper >= 0) $tempclass = 'pluss';
-                else $tempclass = 'minus';
+                if ($temper >= 0) {
+                    $tempclass = 'pluss';
+                } else {
+                    $tempclass = 'minus';
+                }
 
                 // Rund av vindhastighet
                 $r = round($yr_var3['WINDSPEED'][0]['ATTRIBUTES']['MPS']);
