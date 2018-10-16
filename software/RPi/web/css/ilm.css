@@ -50,6 +50,7 @@ hr {
 
 .forecast-table th {
 	text-align: left;
+	padding-bottom: 10px;
 }
 
 @font-face {

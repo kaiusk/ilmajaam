@@ -17,6 +17,13 @@ $koord = array(59.409601, 26.725483);
 $tous = date_sunrise(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
 $loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
 
+$tee_ilm = explode("\n", file_get_contents('http://teeilm.teeinfo.ee/uus/?getstationdata=1&mapstation=30&maptime='));
+$tee_temp = preg_split("/\s+/",$tee_ilm[1]);
+if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
+    $ttmp = $tee_temp[1];
+} else
+    $ttmp="";
+
 function yr_rida($id) {
     global $big_data;
     foreach (array_keys($big_data) as $kuup) {
@@ -29,7 +36,7 @@ function yr_rida($id) {
             }
             echo "<td>";
             echo "<span class='ilm'>
-<img src='https://api.met.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/svg%2Bxml' alt='' width='36px;'>
+<img src='https://api.met.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/svg%2Bxml' alt='' width='36px'>
 </span>";
             if ($data["temp"] > 0) {
                 $t_cl = "pos";
@@ -65,12 +72,9 @@ function yr_rida($id) {
 ?>
 <div class="date small dimmed"></div>
 <div class="calendar xxsmall"></div>
-<table>
+<table style="width: 100%">
     <tbody>
     <tr>
-        <td width="50%">
-            <div class="large time"></div>
-        </td>
         <td>
             <div class="windsun large dimmed"><span class="wi wi-sunrise"
                                                     style="color: yellow; padding-right: 10px;"></span><?= $tous; ?>
@@ -80,6 +84,12 @@ function yr_rida($id) {
         <td>
             <div class="windsun large dimmed"><span class="wi wi-sunset"
                                                     style="color: yellow; padding-right: 10px;"></span><?= $loojang; ?>
+            </div>
+        </td>
+        <td width="50%">
+            <div class="large dimmed">
+                <i class="wi wi-thermometer-exterior" style="color: yellow; padding-right: 10px;"></i>
+                <?= $ttmp; ?>&deg;C
             </div>
         </td>
     </tr>
@@ -92,7 +102,7 @@ function yr_rida($id) {
     <?php include("yr.php"); ?>
     <table class="forecast-table">
         <thead>
-        <tr>
+        <tr style="margin-bottom: 10px;">
             <th>Aeg</th>
             <?php
             foreach (array_keys($big_data) as $kuup) {
