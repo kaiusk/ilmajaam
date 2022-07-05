@@ -58,6 +58,7 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
 <hr/>
 <div class="small dimmed">
     <?php include("yr2.php");
+    print_r($big_data);
     ?>
 
     <table class="forecast-table">

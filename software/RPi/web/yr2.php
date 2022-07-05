@@ -2,9 +2,6 @@
 
 $url = $yr_url = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=59.4055&lon=26.7271';
 $ch = curl_init($url);
-// Åpne den lokale temp filen for skrive tilgang (med cURL hooks enablet)
-//$fp = fopen($lokal_xml_url, "w");
-// Last fra yr.no til lokal kopi med curl
 $agent = 'sitename=https://github.com/kaiusk/ilmajaam';
 curl_setopt($ch, CURLOPT_USERAGENT, $agent);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -87,10 +84,9 @@ if ($data) {
                     $icon = $icon_map[$icon].'.svg';
                 }
                 $big_data[date("Y-m-d", $kp)][$hour]['ilm'] = $icon;
-                if (isset($ts['data']['next_6_hours']['summary']['precipitation_amount'])) {
-                    $big_data[date("Y-m-d", $kp)][$hour]['vihm'] = $ts['data']['next_6_hours']['summary']['precipitation_amount'];
-
-                }
+                /*if (isset($ts['data']['next_6_hours']['details']['precipitation_amount'])) {
+                    $big_data[date("Y-m-d", $kp)][$hour]['vihm'] = $ts['data']['next_6_hours']['details']['precipitation_amount'];
+                }*/
             }
         }
     }
@@ -136,6 +132,9 @@ function yr_rida($id) {
                 $wd = "NW";
             }
             echo "<span class='tuul'><img src='images/wind/" . $wd . ".png' alt='" . $data['suund'] . "'></span>";
+            /*if ($data['vihm']>0) {
+                echo "<img src='images/raindrop.png' alt='' width='36px'>";
+            }*/
             echo "</td>";
         } else {
             echo "<td></td>";
