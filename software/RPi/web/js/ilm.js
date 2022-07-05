@@ -96,14 +96,14 @@ Meteogram.prototype.drawWindData = function (chart) {
             x = point.plotX + chart.plotLeft;
             y = 360;
 
-            chart.renderer.image(_var.windIconsPath + meteogram.windDirectionIcons[i], x, y, 17, 15)
+            chart.renderer.image(_var.windIconsPath + meteogram.windDirectionIcons[i], x-10, y-10, 32, 32)
                 .attr({
                         title: meteogram.windDirections[i] + ' �'
                     }
                 )
                 .add();
 
-            chart.renderer.text('<span style="color:#87CEFA; font-size: 14px;">' + Highcharts.numberFormat(meteogram.windSpeeds[i], 1, '.') + '</span>', x + 1, y - 12)
+            chart.renderer.text('<span style="color:#87CEFA; font-size: 14px; letter-spacing: 0">' + Highcharts.numberFormat(meteogram.windSpeeds[i], 1, '.') + '</span>', x + 1, y - 12)
                 .attr({
                         title: meteogram.windDirections[i] + ' �'
                     }
@@ -350,17 +350,17 @@ Meteogram.prototype.getChartOptions = function () {
                 useHTML: true,
                 formatter: function () {
 
-                    var marker;
-                    var hour = parseInt(Highcharts.dateFormat('%H', this.x), 10);
-                    var style = "";
-
-                    if (typeof meteogram.phenomenClasses[tempSeriesCounter] != 'undefined' && meteogram.phenomenClasses[tempSeriesCounter] != "") {
-                        var title = meteogram.phenomenTexts[_var.activeLocale][tempSeriesCounter];
+                    let marker;
+                    const hour = parseInt(Highcharts.dateFormat('%H', this.x), 10);
+                    let style = "";
+                    //console.log(hour)
+                    if (typeof meteogram.phenomenClasses[tempSeriesCounter] != 'undefined' && meteogram.phenomenClasses[tempSeriesCounter] !== "" && hour % 3 === 0) {
+                        const title = meteogram.phenomenTexts[_var.activeLocale][tempSeriesCounter];
                         if (hour >= 7 && hour <= 23) {
-                            if (tempSeriesCounter == 0) {
+                            if (tempSeriesCounter === 0) {
                                 style = 'margin-left: -10px;';
                             }
-                            if ((tempSeriesCounter + 1) == meteogram.phenomenClasses.length) {
+                            if ((tempSeriesCounter + 1) === meteogram.phenomenClasses.length) {
                                 style = 'margin-right: -15px;';
                             }
                             marker = '<div style="' + style + '" title="' + title + '" class="weather-icon ' + meteogram.phenomenClasses[tempSeriesCounter] + '"/>';
@@ -391,7 +391,7 @@ Meteogram.prototype.getChartOptions = function () {
                 formatter: function () {
                     var marker;
                     if (this.y > 0) {
-                        marker = '<div style="z-index: 9000">' + Highcharts.numberFormat(this.y, 1, '.') + '</div>';
+                        marker = '<div style="z-index: 9000; letter-spacing: 0;">' + Highcharts.numberFormat(this.y, 1, '.') + '</div>';
                     }
                     return marker;
                 },

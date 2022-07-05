@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="et">
 <head>
     <title>ILM</title>
     <script src="js/jquery.js"></script>
@@ -10,6 +10,9 @@
 </head>
 <body>
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 header('Content-Type: text/html; charset=utf-8');
 setlocale(LC_TIME, 'et_EE.UTF-8');
 date_default_timezone_set("Europe/Tallinn");
@@ -23,51 +26,6 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
     $ttmp = $tee_temp[1];
 } else
     $ttmp="";
-
-function yr_rida($id) {
-    global $big_data;
-    foreach (array_keys($big_data) as $kuup) {
-        if (isset($big_data[$kuup][$id])) {
-            $data = $big_data[$kuup][$id];
-            if ($id == 0 || $id == 3) {
-                $oo = "is_night=1;";
-            } else {
-                $oo = "";
-            }
-            echo "<td>";
-            echo "<span class='ilm'>
-<img src='https://api.met.no/weatherapi/weathericon/1.1/?symbol=" . $data["ilm"] . ";" . $oo . "content_type=image/svg%2Bxml' alt='' width='36px'>
-</span>";
-            if ($data["temp"] > 0) {
-                $t_cl = "pos";
-            } else {
-                $t_cl = "neg";
-            }
-            echo "<span class='temp $t_cl'>" . $data["temp"] . "</span>";
-            if ($data["suund"] > 340 || $data["suund"] < 20) {
-                $wd = "N";
-            } elseif ($data["suund"] > 19 && $data["suund"] < 70) {
-                $wd = "NE";
-            } elseif ($data["suund"] > 69 && $data["suund"] < 110) {
-                $wd = "E";
-            } elseif ($data["suund"] > 109 && $data["suund"] < 160) {
-                $wd = "SE";
-            } elseif ($data["suund"] > 159 && $data["suund"] < 200) {
-                $wd = "S";
-            } elseif ($data["suund"] > 199 && $data["suund"] < 250) {
-                $wd = "SW";
-            } elseif ($data["suund"] > 249 && $data["suund"] < 290) {
-                $wd = "W";
-            } else {
-                $wd = "NW";
-            }
-            echo "<span class='tuul'><img src='images/wind/" . $wd . ".png' alt='" . $data['suund'] . "'></span>";
-            echo "</td>";
-        } else {
-            echo "<td></td>";
-        }
-    }
-}
 
 ?>
 <div class="date small dimmed"></div>
@@ -99,7 +57,9 @@ function yr_rida($id) {
 <div id='graph-container'></div>
 <hr/>
 <div class="small dimmed">
-    <?php include("yr.php"); ?>
+    <?php include("yr2.php");
+    ?>
+
     <table class="forecast-table">
         <thead>
         <tr style="margin-bottom: 10px;">
@@ -115,25 +75,25 @@ function yr_rida($id) {
         <tr>
             <td class="aeg">00-06</td>
             <?php
-            yr_rida(0);
+            yr_rida(3);
             ?>
         </tr>
         <tr>
             <td class="aeg">06-12</td>
             <?php
-            yr_rida(1);
+            yr_rida(9);
             ?>
         </tr>
         <tr>
             <td class="aeg">12-18</td>
             <?php
-            yr_rida(2);
+            yr_rida(15);
             ?>
         </tr>
         <tr>
             <td class="aeg">18-24</td>
             <?php
-            yr_rida(3);
+            yr_rida(21);
             ?>
         </tr>
         </tbody>
@@ -153,8 +113,8 @@ function yr_rida($id) {
     }
     $.extend(_var, {
         "activeLocale": "et",
-        "windIconsPath": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013\/images\/wind\/",
-        "meteogramDataUri": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013\/meteogram.php?locationId=4926&lang=et",
+        "windIconsPath": "https:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020\/images\/wind-icons\/",
+         "meteogramDataUri": "https:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020\/meteogram.php\/?coordinates=59.4055433191516;26.727125151815",
         "translations": {
             "temperature": "Temperatuur",
             "precipitation": "Sademed",
@@ -170,11 +130,11 @@ function yr_rida($id) {
                 "shortMonths": ["Jaanauar", "Veebruar", "M\u00e4rts", "Aprill", "Mai", "Juuni", "Juuli", "August", "September", "Oktoober", "November", "Detsember"]
             }
         },
-        "every_village_ac_url": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013\/async\/locationAutocomplete.php",
+        "every_village_ac_url": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm\/async\/locationAutocomplete.php",
         "every_village_redirect_url": "http:\/\/www.ilmateenistus.ee\/asukoha-prognoos\/",
-        "theme_url": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013",
+        "theme_url": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020",
         "every_village_request_parameter": "id",
-        "template_dir_path": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/emhi2013"
+        "template_dir_path": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020"
     });
 </script>
 <script type="text/javascript" src="js/lib.js"></script>
