@@ -57,9 +57,7 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
 <div id='graph-container'></div>
 <hr/>
 <div class="small dimmed">
-    <?php include("yr2.php");
-    print_r($big_data);
-    ?>
+    <?php include("yr2.php");?>
 
     <table class="forecast-table">
         <thead>
