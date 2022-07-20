@@ -3,6 +3,7 @@
 <head>
     <title>ILM</title>
     <script src="js/jquery.js"></script>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" media="all" href="css/site.css"/>
     <link rel="stylesheet" type="text/css" href="css/ilm.css">
     <link rel="stylesheet" type="text/css" href="css/weather-icons.css">

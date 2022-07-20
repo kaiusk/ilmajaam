@@ -530,8 +530,8 @@ $(function () {
     $.getJSON(
         _var.meteogramDataUri + '&callback=?',
         function (xml) {
+            console.log(xml);
             meteogram = new Meteogram(xml, 'graph-container');
-
         }
     );
 

@@ -62,7 +62,7 @@
 				return array($content, $response);
 			}
 		}
-
+//https://www.ilmateenistus.ee/wp-content/themes/ilm2020/meteogram.php/?coordinates=59.4055433191516;26.727125151815
 		$xmlString = get_fcontent("http://www.ilmateenistus.ee/meteogram.xml?locationId=8303&lang=et");
 
 		$xml = new SimpleXMLElement($xmlString[0]);

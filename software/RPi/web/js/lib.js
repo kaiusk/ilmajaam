@@ -23884,7 +23884,7 @@ jQuery(function($) {
         yearSuffix: ''
     };
     $.datepicker.setDefaults($.datepicker.regional['en-GB']);
-});;
+});
 (function($) {
     $.fn.placeholderFix = function(options) {
         var opts = $.extend({}, $.fn.placeholderFix.defaults, options);
