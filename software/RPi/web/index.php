@@ -65,7 +65,7 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
             <?php
             $fmt = datefmt_create(
                 'et_EE',
-                IntlDateFormatter::FULL,
+                IntlDateFormatter::MEDIUM,
                 IntlDateFormatter::NONE,
                 'Europe/Tallinn',
                 IntlDateFormatter::GREGORIAN
