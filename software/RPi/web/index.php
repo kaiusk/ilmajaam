@@ -14,9 +14,9 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-header('Content-Type: text/html; charset=utf-8');
-setlocale(LC_TIME, 'et_EE.UTF-8');
-date_default_timezone_set("Europe/Tallinn");
+//header('Content-Type: text/html; charset=utf-8');
+//setlocale(LC_TIME, 'et_EE.UTF-8');
+//date_default_timezone_set("Europe/Tallinn");
 $koord = array(59.409601, 26.725483);
 $tous = date_sunrise(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
 $loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
@@ -65,8 +65,15 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
         <tr style="margin-bottom: 10px;">
             <th>Aeg</th>
             <?php
+            $fmt = datefmt_create(
+                'et_EE',
+                IntlDateFormatter::FULL,
+                IntlDateFormatter::NONE,
+                'Europe/Tallinn',
+                IntlDateFormatter::GREGORIAN
+            );
             foreach (array_keys($big_data) as $kuup) {
-                echo "<th>" . strftime("%a %e.%b", strtotime($kuup)) . "</th>";
+                echo "<th>" . datefmt_format($fmt, strtotime($kuup)) . "</th>";
             }
             ?>
         </tr>

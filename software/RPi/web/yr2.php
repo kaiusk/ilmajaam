@@ -65,7 +65,7 @@ if ($data) {
 
             $big_data[date("Y-m-d", $kp)][$hour] = [
                 'ilm'    => '',
-                'temp'   => round($details['air_temperature'], 0),
+                'temp'   => round($details['air_temperature']),
                 'suund'  => $details['wind_from_direction'],
                 'kiirus' => $details['wind_speed'],
                 'rohk'   => $details['air_pressure_at_sea_level'],
@@ -92,7 +92,7 @@ if ($data) {
     }
 }
 
-function yr_rida($id) {
+function yr_rida($id): void {
     global $big_data;
     foreach (array_keys($big_data) as $kuup) {
         if (isset($big_data[$kuup][$id])) {
