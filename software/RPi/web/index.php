@@ -14,12 +14,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-//header('Content-Type: text/html; charset=utf-8');
-//setlocale(LC_TIME, 'et_EE.UTF-8');
-//date_default_timezone_set("Europe/Tallinn");
-//$koord = array(59.409601, 26.725483);
-//$tous = date_sunrise(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
-//$loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
+date_default_timezone_set("Europe/Tallinn");
 $suninfo = date_sun_info(time(), 59.409601, 26.725483);
 $tous = date('H:i', $suninfo['sunrise']);
 $loojang  = date('H:i', $suninfo['sunset']);
