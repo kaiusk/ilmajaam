@@ -21,8 +21,8 @@ error_reporting(E_ALL);
 //$tous = date_sunrise(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
 //$loojang = date_sunset(time(), SUNFUNCS_RET_STRING, $koord[0], $koord[1], 90.583333, 3);
 $suninfo = date_sun_info(time(), 59.409601, 26.725483);
-$tous = $suninfo['sunrise'];
-$loojang  = $suninfo['sunset'];
+$tous = date('H:i', $suninfo['sunrise']);
+$loojang  = date('H:i', $suninfo['sunset']);
 
 $tee_ilm = explode("\n", file_get_contents('http://teeilm.teeinfo.ee/uus/?getstationdata=1&mapstation=30&maptime='));
 $tee_temp = preg_split("/\s+/",$tee_ilm[1]);
