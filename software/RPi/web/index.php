@@ -17,14 +17,14 @@ error_reporting(E_ALL);
 date_default_timezone_set("Europe/Tallinn");
 $suninfo = date_sun_info(time(), 59.409601, 26.725483);
 $tous = date('H:i', $suninfo['sunrise']);
-$loojang  = date('H:i', $suninfo['sunset']);
+$loojang = date('H:i', $suninfo['sunset']);
 
 $tee_ilm = explode("\n", file_get_contents('http://teeilm.teeinfo.ee/uus/?getstationdata=1&mapstation=30&maptime='));
-$tee_temp = preg_split("/\s+/",$tee_ilm[1]);
-if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
+$tee_temp = preg_split("/\s+/", $tee_ilm[1]);
+if (isset($tee_temp[2]) && $tee_temp[2] == 'C') {
     $ttmp = $tee_temp[1];
 } else
-    $ttmp="";
+    $ttmp = "";
 
 ?>
 <div class="date small dimmed"></div>
@@ -56,7 +56,7 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
 <div id='graph-container'></div>
 <hr/>
 <div class="small dimmed">
-    <?php include("yr2.php");?>
+    <?php include("yr2.php"); ?>
 
     <table class="forecast-table">
         <thead>
@@ -68,7 +68,8 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
                 IntlDateFormatter::MEDIUM,
                 IntlDateFormatter::NONE,
                 'Europe/Tallinn',
-                IntlDateFormatter::GREGORIAN
+                IntlDateFormatter::GREGORIAN,
+                'eeee MM.dd'
             );
             foreach (array_keys($big_data) as $kuup) {
                 echo "<th>" . datefmt_format($fmt, strtotime($kuup)) . "</th>";
@@ -117,29 +118,29 @@ if (isset($tee_temp[2]) && $tee_temp[2]=='C') {
         var _var = {};
     }
     $.extend(_var, {
-        "activeLocale": "et",
-        "windIconsPath": "https:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020\/images\/wind-icons\/",
-         "meteogramDataUri": "https:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020\/meteogram.php\/?coordinates=59.4055433191516;26.727125151815",
-        "translations": {
-            "temperature": "Temperatuur",
+        "activeLocale"                   : "et",
+        "windIconsPath"                  : "https:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020\/images\/wind-icons\/",
+        "meteogramDataUri"               : "https:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020\/meteogram.php\/?coordinates=59.4055433191516;26.727125151815",
+        "translations"                   : {
+            "temperature"  : "Temperatuur",
             "precipitation": "Sademed",
-            "pressure": "\u00d5hur\u00f5hk",
-            "wind": "Tuul"
+            "pressure"     : "\u00d5hur\u00f5hk",
+            "wind"         : "Tuul"
         },
-        "chartLocaleSettings": {
+        "chartLocaleSettings"            : {
             "lang": {
-                "month": {
+                "month"      : {
                     "": "Detsember"
                 },
-                "weekdays": ["P\u00fchap\u00e4ev", "Esmasp\u00e4ev", "Teisip\u00e4ev", "Kolmap\u00e4ev", "Neljap\u00e4ev", "Reede", "Laup\u00e4ev"],
+                "weekdays"   : ["P\u00fchap\u00e4ev", "Esmasp\u00e4ev", "Teisip\u00e4ev", "Kolmap\u00e4ev", "Neljap\u00e4ev", "Reede", "Laup\u00e4ev"],
                 "shortMonths": ["Jaanauar", "Veebruar", "M\u00e4rts", "Aprill", "Mai", "Juuni", "Juuli", "August", "September", "Oktoober", "November", "Detsember"]
             }
         },
-        "every_village_ac_url": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm\/async\/locationAutocomplete.php",
-        "every_village_redirect_url": "http:\/\/www.ilmateenistus.ee\/asukoha-prognoos\/",
-        "theme_url": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020",
+        "every_village_ac_url"           : "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm\/async\/locationAutocomplete.php",
+        "every_village_redirect_url"     : "http:\/\/www.ilmateenistus.ee\/asukoha-prognoos\/",
+        "theme_url"                      : "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020",
         "every_village_request_parameter": "id",
-        "template_dir_path": "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020"
+        "template_dir_path"              : "http:\/\/www.ilmateenistus.ee\/wp-content\/themes\/ilm2020"
     });
 </script>
 <script type="text/javascript" src="js/lib.js"></script>
